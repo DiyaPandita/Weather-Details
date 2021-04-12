@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/twenty"
+    android:layout_marginTop="@dimen/twenty"
+    android:layout_marginRight="@dimen/twenty">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="@dimen/twenty">
+
+        <TextView
+            android:id="@+id/city_Country_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/twenty"
+            android:textStyle="bold"
+            tools:text="No City Data" />
+
+        <TextView
+            android:id="@+id/temp_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/city_Country_txt"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15dp"
+            tools:text="Degrees" />
+
+        <TextView
+            android:id="@+id/date_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/temp_txt"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15dp"
+            android:text="date" />
+
+        <ImageView
+            android:id="@+id/img_dlt"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_delete"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

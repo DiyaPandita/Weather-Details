@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="emptyTextPadding">8dp</dimen>
+    <dimen name="thirty">30dp</dimen>
+    <dimen name="list_weather_icon_size">30dp</dimen>
+    <dimen name="sixteen">16dp</dimen>
+    <dimen name="twenty">20dp</dimen>
+    <dimen name="fifty">50dp</dimen>
+    <dimen name="forty">40dp</dimen>
+    <dimen name="eighteen">18dp</dimen>
+
+</resources>
