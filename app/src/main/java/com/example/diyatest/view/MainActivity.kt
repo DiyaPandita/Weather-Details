@@ -79,16 +79,18 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun updateForecast(forecasts: WeatherResponseData) {
 
         weatherResponse = forecasts;
-        ModelPreferencesManager.put(weatherResponse, Constants.SavedCity)
         if (ModelPreferencesManager.getFavCitiesList()!!.contains(weatherResponse)) {
             var tempArrayList = ModelPreferencesManager.getFavCitiesList()
 
-            tempArrayList!!.removeAt(ModelPreferencesManager.getFavCitiesList()!!
-                .indexOf(weatherResponse))
+            tempArrayList!!.removeAt(
+                ModelPreferencesManager.getFavCitiesList()!!
+                    .indexOf(weatherResponse)
+            )
             tempArrayList.add(weatherResponse)
             ModelPreferencesManager.saveCityToFavrouites(this, tempArrayList)
 
         }
+        ModelPreferencesManager.put(weatherResponse, Constants.SavedCity)
         showContainer()
         city_temp.text = forecasts.main?.temp.toString() + "°C"
         city_name.text = forecasts.name + ", " + forecasts.sys.country
@@ -140,13 +142,11 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun addToFav() {
         lnr_addFav.setOnClickListener(View.OnClickListener {
-            if (ModelPreferencesManager.getFavCitiesList()!!.contains(weatherResponse)) {
+            if (cityPresent()) {
                 toast(getString(R.string.city_already_added))
             } else {
-                saveDestinationCity?.add(weatherResponse)
+                saveDestinationCity.add(weatherResponse)
                 ModelPreferencesManager.saveCityToFavrouites(this, saveDestinationCity)
-
-                toast(getString(R.string.city_added))
 
             }
         })
@@ -197,12 +197,14 @@ class MainActivity : AppCompatActivity(), MainView {
         when (errorType) {
             ErrorTypes.CALL_ERROR -> {
 
-                if (!cityAlreadySearched())
+                if (!cityAlreadySearched()) {
                     ModelPreferencesManager.get<WeatherResponseData>(Constants.SavedCity)?.let {
                         updateForecast(it)
                     }
+                }
                 toast(getString(R.string.connection_error_message))
             }
+
             ErrorTypes.MISSING_API_KEY -> toast(getString(R.string.missing_api_key_message))
             ErrorTypes.NO_RESULT_FOUND -> toast(getString(R.string.city_not_found_toast_message))
         }
@@ -218,6 +220,15 @@ class MainActivity : AppCompatActivity(), MainView {
         if (savedInstanceState.getSerializable(ORIENTATION_SAVE_DATA) != null)
             updateForecast(savedInstanceState.getSerializable(ORIENTATION_SAVE_DATA) as WeatherResponseData)
         super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    private fun cityPresent(): Boolean {
+        for (i in ModelPreferencesManager.getFavCitiesList()!!) {
+            if (i.name.equals(weatherResponse.name, true)) {
+                return true
+            }
+        }
+        return false
     }
 
     @Override
