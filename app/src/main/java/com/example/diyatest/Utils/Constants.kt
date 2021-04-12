@@ -9,6 +9,5 @@ class Constants {
         const val ArrayListCityData = "arraylist_cities"
         const val SELECTED_WEATHER = "selected_weather"
         const val ORIENTATION_SAVE_DATA = "orientation_change_data"
-        var saveDestinationCities: MutableList<WeatherResponseData> = ArrayList()
     }
 }

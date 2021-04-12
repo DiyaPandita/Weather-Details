@@ -80,6 +80,15 @@ class MainActivity : AppCompatActivity(), MainView {
 
         weatherResponse = forecasts;
         ModelPreferencesManager.put(weatherResponse, Constants.SavedCity)
+        if (ModelPreferencesManager.getFavCitiesList()!!.contains(weatherResponse)) {
+            var tempArrayList = ModelPreferencesManager.getFavCitiesList()
+
+            tempArrayList!!.removeAt(ModelPreferencesManager.getFavCitiesList()!!
+                .indexOf(weatherResponse))
+            tempArrayList.add(weatherResponse)
+            ModelPreferencesManager.saveCityToFavrouites(this, tempArrayList)
+
+        }
         showContainer()
         city_temp.text = forecasts.main?.temp.toString() + "°C"
         city_name.text = forecasts.name + ", " + forecasts.sys.country
@@ -115,8 +124,8 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private fun getDateTime(timeStamp: Long): String? {
         try {
-                val timeFormatter = SimpleDateFormat("dd-MMM-yyyy, HH:mm")
-                return timeFormatter.format(Date(timeStamp * 1000L))
+            val timeFormatter = SimpleDateFormat("dd-MMM-yyyy, HH:mm")
+            return timeFormatter.format(Date(timeStamp * 1000L))
         } catch (e: Exception) {
             return e.toString()
         }
